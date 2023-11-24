@@ -11,21 +11,21 @@ import com.citi.utils.DataUtils;
 
 public class LoginTest extends AutomationWrapper {
 
-	@Test
-	public void validLoginTest() {
+	@Test(dataProvider = "commonDataProvider",dataProviderClass = DataUtils.class,groups = {"login","smoke"})
+	public void validLoginTest(String username,String password,String expectedHeader) {
 		LoginPage loginPage = new LoginPage(driver);
 
-		loginPage.enterUsername("Admin");
-		loginPage.enterPassword("admin123");
+		loginPage.enterUsername(username);
+		loginPage.enterPassword(password);
 		loginPage.clickOnLogin();
 
 		DashboardPage dashboardPage = new DashboardPage(driver);
 
 		String actualHeader = dashboardPage.getDashboardHeader();
-		Assert.assertEquals(actualHeader, "Dashboard");
+		Assert.assertEquals(actualHeader, expectedHeader);
 	}
 
-	@Test(dataProvider = "invalidLoginData",dataProviderClass = DataUtils.class)
+	@Test(dataProvider = "commonDataProvider",dataProviderClass = DataUtils.class,groups = {"login"})
 	public void invalidLoginTest(String username, String password, String expectedError) {
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.enterUsername(username);

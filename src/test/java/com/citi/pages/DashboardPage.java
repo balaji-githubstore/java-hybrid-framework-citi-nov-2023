@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class DashboardPage {
+	private By headerLocator=By.xpath("//h6[contains(normalize-space(),'Dash')]");
 	
 	private WebDriver driver;
 
@@ -13,7 +14,7 @@ public class DashboardPage {
 	
 	public String getDashboardHeader()
 	{
-		return driver.findElement(By.xpath("//h6[contains(normalize-space(),'Dash')]")).getText();
+		return driver.findElement(headerLocator).getText();
 	}
 
 }
